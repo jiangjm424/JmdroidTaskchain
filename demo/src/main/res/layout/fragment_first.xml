@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FirstFragment">
+
+    <TextView
+        android:id="@+id/textview_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_first_fragment"
+        app:layout_constraintBottom_toTopOf="@id/button_first"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_first"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_first" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/start_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="y启动任务链" />
+        <Button
+            android:id="@+id/start_id_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="task3继续" />
+        <Button
+            android:id="@+id/stop_id_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="中断后面" />
+
+<!--        <Button-->
+<!--            android:id="@+id/stop_download"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="停止下载" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/remove_all_download"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="删除所有下载" />-->
+<!--        <Button-->
+<!--            android:id="@+id/resume_all_download"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="恢复所有下载" />-->
+<!--        <Button-->
+<!--            android:id="@+id/pause_all_download"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="暂停所有下载" />-->
+<!--        <View-->
+<!--            android:background="#cccccc"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="3dp"/>-->
+<!--        <Button-->
+<!--            android:id="@+id/bind_download_service"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="绑定服务" />-->
+<!--        <Button-->
+<!--            android:id="@+id/unbind_download_service"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="释放服务" />-->
+<!--        <Button-->
+<!--            android:id="@+id/basicTypes"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="调用方法basicTypes" />-->
+<!--        <Button-->
+<!--            android:id="@+id/add_progress"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="添加进度监听" />-->
+<!--        <Button-->
+<!--            android:id="@+id/del_progress"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="注销进度监听" />-->
+<!--        <Button-->
+<!--            android:id="@+id/check_task_info"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="查看任务" />-->
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
