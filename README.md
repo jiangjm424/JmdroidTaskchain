@@ -53,3 +53,31 @@ val t = Call.Builder().setRequest(Request()).addTask(Task1())
     .build()
 t.execute(true)
 ```
+
+==对话框按序展示请参考 SecondFragment 中的示例 1 先实现对话框的的任务实现
+```kotlin
+abstract class AbsDialog : AbsTask() {
+    abstract val title: String
+    abstract val message: String
+    override fun work(chain: Chain) {
+        AlertDialog.Builder(chain.context()).setIcon(R.drawable.ic_launcher_foreground)
+            .setTitle(title).setMessage(message).setPositiveButton("next") { _, _ ->
+                nextTask(Request(describe()))
+            }.setNegativeButton("中断") { _, _ ->
+                interrupt(1, "interrupt")
+            }.create().show()
+
+    }
+
+    override fun describe(): Any? {
+        return null
+    }
+}
+```
+
+2 使用taskchain将对话框任务串联起来
+
+```kotlin
+Call.Builder(requireContext()).addTask(D1()).addTasks(listOf(D2(), D3(), D4(), D5()))
+    .build().execute(true) //由于是ui相关，直接在主线程运行
+```

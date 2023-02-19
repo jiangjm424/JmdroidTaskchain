@@ -8,6 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.grank.db.demo.databinding.FragmentSecondBinding
+import com.grank.db.demo.dialog.D1
+import com.grank.db.demo.dialog.D2
+import com.grank.db.demo.dialog.D3
+import com.grank.db.demo.dialog.D4
+import com.grank.db.demo.dialog.D5
+import jm.droid.lib.taskchain.Call
+import jm.droid.lib.taskchain.Request
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -38,6 +45,11 @@ class SecondFragment : Fragment() {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
         binding.buttonFresh.setOnClickListener {
+            Call.Builder(requireContext())
+                .addTask(D1())
+                .addTasks(listOf(D2(), D3(), D4(), D5()))
+                .setRequest(Request())
+                .build().execute(true)
         }
     }
 

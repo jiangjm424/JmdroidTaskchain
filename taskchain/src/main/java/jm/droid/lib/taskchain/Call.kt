@@ -6,7 +6,7 @@ interface Call {
     fun execute(sync: Boolean)
     fun cancel()
     class Builder(private val context: Context? = null) {
-        private var request: Request? = null
+        private var request: Request = Request()
         private var tasks: MutableList<AbsTask> = mutableListOf()
         private var listener: TaskListener? = null
         fun setRequest(request: Request): Builder {
@@ -30,7 +30,7 @@ interface Call {
         }
 
         fun build(): Call {
-            return CallImpl(context, request!!, tasks, listener)
+            return CallImpl(context, request, tasks, listener)
         }
 
     }
