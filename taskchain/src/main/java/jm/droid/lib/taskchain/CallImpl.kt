@@ -15,6 +15,8 @@ internal class CallImpl(
     }
 
     private val executed = AtomicBoolean()
+    private val canceled = AtomicBoolean()
+    private val callDone = AtomicBoolean()
 
     override fun execute(sync: Boolean) {
         check(executed.compareAndSet(false, true)) { "Already Executed" }
@@ -22,7 +24,19 @@ internal class CallImpl(
         else executeService.execute { getRealChainResponse() }
     }
 
+    override fun cancel() {
+        if (callDone.get()) return
+        canceled.compareAndSet(false, true)
+        val task = tasks.firstOrNull { it.isWorking() }
+        task?.cancel()
+        listener?.onCanceled(this, task)
+    }
+
+    internal fun done(){
+        callDone.compareAndSet(false, true)
+    }
     private fun getRealChainResponse() {
+        if (canceled.get()) return
         listener?.onStart(this)
         val taskChain = mutableListOf<AbsTask>()
         taskChain.addAll(tasks)

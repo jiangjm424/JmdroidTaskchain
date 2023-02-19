@@ -45,6 +45,8 @@ class FirstFragment : Fragment() {
         "http://110.81.196.233:49155/down.qq.com/xunxian/patch/ManualPatch4.5.5.1-4.5.7.1-SD.exe?mkey=63ce31b6e7ed56832482e0fce9c4779b&arrive_key=26595237213&cip=116.25.41.233&proto=http&access_type="
 
     private val task3 = Task3()
+    private var call:Call?=null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -53,7 +55,7 @@ class FirstFragment : Fragment() {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
         binding.startDownload.setOnClickListener {
-            val t = Call.Builder().setRequest(Request()).addTask(Task1())
+            call = Call.Builder().setRequest(Request()).addTask(Task1())
                 .addTasks(listOf(Task2(), task3, Task4(), Task5()))
                 .setListener(object :TaskListener{
                     override fun onStart(call: Call) {
@@ -63,8 +65,11 @@ class FirstFragment : Fragment() {
                         Log.i("jiang","task call finish :$call")
                     }
 
-                    override fun onTaskExecute(ii: AbsTask, index: Int) {
-                        Log.i("jiang","task execute :${ii.describe()}, index:$index")
+                    override fun onCanceled(call: Call, task: AbsTask?) {
+                        Log.i("jiang","task call cancel :$call, task:$task")
+                    }
+                    override fun onTaskExecute(task: AbsTask, index: Int) {
+                        Log.i("jiang","task execute :${task.describe()}, index:$index")
                     }
 
                     override fun onInterrupt(ii: AbsTask, code: Int, errMsg: String?) {
@@ -73,7 +78,7 @@ class FirstFragment : Fragment() {
 
                 })
                 .build()
-            t.execute(true)
+            call?.execute(true)
         }
         binding.startIdDownload.setOnClickListener {
             task3.ready(true)
@@ -81,8 +86,9 @@ class FirstFragment : Fragment() {
         binding.stopIdDownload.setOnClickListener {
             task3.ready(false)
         }
-//        binding.stopDownload.setOnClickListener {
-//        }
+        binding.stopDownload.setOnClickListener {
+            call?.cancel()
+        }
 //        binding.pauseAllDownload.setOnClickListener {
 //        }
 //        binding.removeAllDownload.setOnClickListener {

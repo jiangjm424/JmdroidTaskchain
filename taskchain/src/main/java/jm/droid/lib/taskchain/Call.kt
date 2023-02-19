@@ -4,6 +4,7 @@ import android.content.Context
 
 interface Call {
     fun execute(sync: Boolean)
+    fun cancel()
     class Builder(private val context: Context? = null) {
         private var request: Request? = null
         private var tasks: MutableList<AbsTask> = mutableListOf()

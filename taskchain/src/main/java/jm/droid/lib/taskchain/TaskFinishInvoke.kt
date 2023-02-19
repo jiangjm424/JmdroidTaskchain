@@ -1,7 +1,8 @@
 package jm.droid.lib.taskchain
 
-class TaskFinishInvoke : AbsTask() {
+internal class TaskFinishInvoke : AbsTask() {
     override fun work(chain: Chain) {
+        (chain.call() as? CallImpl)?.done()
         chain.listener()?.onFinish(chain.call())
     }
 

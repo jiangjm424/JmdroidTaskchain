@@ -8,6 +8,12 @@ abstract class AbsTask : ITask {
         this.nextChain = chain
     }
 
+    internal fun isWorking(): Boolean = nextChain != null
+
+    internal fun cancel() {
+        nextChain = null
+    }
+
     fun nextTask(req: Request) {
         val c = nextChain ?: return
         nextChain = null
@@ -21,7 +27,7 @@ abstract class AbsTask : ITask {
     }
 
     interface Chain {
-        fun context():Context?
+        fun context(): Context?
         fun request(): Request
         fun call(): Call
         fun listener(): TaskListener?

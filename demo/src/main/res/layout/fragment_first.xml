@@ -50,11 +50,11 @@
             android:layout_height="wrap_content"
             android:text="中断后面" />
 
-<!--        <Button-->
-<!--            android:id="@+id/stop_download"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="停止下载" />-->
+        <Button
+            android:id="@+id/stop_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消执行" />
 
 <!--        <Button-->
 <!--            android:id="@+id/remove_all_download"-->
