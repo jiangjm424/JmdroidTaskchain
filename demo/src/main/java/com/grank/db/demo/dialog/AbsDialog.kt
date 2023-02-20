@@ -3,6 +3,7 @@ package com.grank.db.demo.dialog
 import android.app.AlertDialog
 import com.grank.db.demo.R
 import jm.droid.lib.taskchain.AbsTask
+import jm.droid.lib.taskchain.Call
 import jm.droid.lib.taskchain.Request
 
 abstract class AbsDialog : AbsTask() {
@@ -18,7 +19,7 @@ abstract class AbsDialog : AbsTask() {
 
     }
 
-    override fun describe(): Any? {
-        return null
+    override fun onCancel(call: Call) {
+
     }
 }

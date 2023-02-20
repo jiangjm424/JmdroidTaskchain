@@ -2,6 +2,7 @@ package com.grank.db.demo.task
 
 import android.util.Log
 import jm.droid.lib.taskchain.AbsTask
+import jm.droid.lib.taskchain.Call
 import jm.droid.lib.taskchain.Request
 
 class Task3 : AbsTask() {
@@ -18,5 +19,7 @@ class Task3 : AbsTask() {
             interrupt(3, "aa")
     }
 
-    override fun describe(): Any = this.javaClass
+    override fun onCancel(call: Call) {
+        Log.i("jiang","onCancel this:$this call:$call")
+    }
 }

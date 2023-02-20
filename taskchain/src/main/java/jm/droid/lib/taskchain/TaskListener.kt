@@ -12,7 +12,7 @@ interface TaskListener {
     fun onFinish(call: Call)
 
     /**
-     * 取消任务链调用后的回调
+     * 取消任务链调用后的回调  若任务链还未开始执行，则 @param task 为空
      */
     fun onCanceled(call: Call, task: AbsTask?)
 

@@ -10,8 +10,9 @@ abstract class AbsTask : ITask {
 
     internal fun isWorking(): Boolean = nextChain != null
 
-    internal fun cancel() {
+    internal fun cancel(call: Call) {
         nextChain = null
+        onCancel(call)
     }
 
     fun nextTask(req: Request) {
@@ -23,6 +24,7 @@ abstract class AbsTask : ITask {
     fun interrupt(code: Int, msg: String?) {
         val c = nextChain ?: return
         nextChain = null
+        (c.call() as CallImpl).done(false)
         c.listener()?.onInterrupt(this, code, msg)
     }
 

@@ -25,16 +25,20 @@ internal class CallImpl(
     }
 
     override fun cancel() {
-        if (callDone.get()) return
+        if (callDone.get() || canceled.get()) return
         canceled.compareAndSet(false, true)
         val task = tasks.firstOrNull { it.isWorking() }
-        task?.cancel()
+        task?.cancel(this)
         listener?.onCanceled(this, task)
     }
 
-    internal fun done(){
+    /**
+     * @param finish true 任务链所有任务执行完成后结束  false  任务链被某个任务中断导致的任务结
+     */
+    internal fun done(finish: Boolean) {
         callDone.compareAndSet(false, true)
     }
+
     private fun getRealChainResponse() {
         if (canceled.get()) return
         listener?.onStart(this)

@@ -17,7 +17,7 @@ internal class ChainImpl(
 
     override fun process(req: Request) {
         val c = taskChain[index]
-        val chain = copy(index = index + 1)
+        val chain = copy(index = index + 1, req = req)
         c.attachNextChain(chain)
         if (index < taskChain.size - 1) {
             listener?.onTaskExecute(c, index)
