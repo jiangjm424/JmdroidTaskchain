@@ -21,6 +21,14 @@ abstract class AbsTask : ITask {
         c.process(req)
     }
 
+    fun executeOn(executeOn: ExecuteOn, block: () -> Unit) {
+        when (executeOn) {
+            ExecuteOn.MAIN -> Dispatcher.M.post { block() }
+            ExecuteOn.IO -> Dispatcher.I.execute { block() }
+            else -> block()
+        }
+    }
+
     fun interrupt(code: Int, msg: String?) {
         val c = nextChain ?: return
         nextChain = null

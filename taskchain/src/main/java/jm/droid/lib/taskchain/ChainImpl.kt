@@ -19,7 +19,7 @@ internal class ChainImpl(
         val c = taskChain[index]
         val chain = copy(index = index + 1, req = req)
         c.attachNextChain(chain)
-        if (index < taskChain.size - 1) {
+        if (index != 0 && index < taskChain.size - 1) {
             listener?.onTaskExecute(c, index)
         }
         c.work(chain)

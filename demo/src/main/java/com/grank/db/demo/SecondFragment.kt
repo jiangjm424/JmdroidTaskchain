@@ -14,6 +14,7 @@ import com.grank.db.demo.dialog.D3
 import com.grank.db.demo.dialog.D4
 import com.grank.db.demo.dialog.D5
 import jm.droid.lib.taskchain.Call
+import jm.droid.lib.taskchain.ExecuteOn
 import jm.droid.lib.taskchain.Request
 
 /**
@@ -49,7 +50,7 @@ class SecondFragment : Fragment() {
                 .addTask(D1())
                 .addTasks(listOf(D2(), D3(), D4(), D5()))
                 .setRequest(Request())
-                .build().execute(true)
+                .build().execute(ExecuteOn.MAIN)
         }
     }
 

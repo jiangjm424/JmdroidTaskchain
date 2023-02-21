@@ -1,6 +1,7 @@
 package com.grank.db.demo.dialog
 
 import android.app.AlertDialog
+import android.util.Log
 import com.grank.db.demo.R
 import jm.droid.lib.taskchain.AbsTask
 import jm.droid.lib.taskchain.Call
@@ -10,6 +11,7 @@ abstract class AbsDialog : AbsTask() {
     abstract val title: String
     abstract val message: String
     override fun work(chain: Chain) {
+        Log.i("jiang2","dddalg")
         AlertDialog.Builder(chain.context()).setIcon(R.drawable.ic_launcher_foreground)
             .setTitle(title).setMessage(message).setPositiveButton("next") { _, _ ->
                 nextTask(Request(describe()))

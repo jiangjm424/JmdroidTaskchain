@@ -18,10 +18,9 @@ internal class CallImpl(
     private val canceled = AtomicBoolean()
     private val callDone = AtomicBoolean()
 
-    override fun execute(sync: Boolean) {
+    override fun execute(dispatchers: ExecuteOn) {
         check(executed.compareAndSet(false, true)) { "Already Executed" }
-        if (sync) getRealChainResponse()
-        else executeService.execute { getRealChainResponse() }
+        getRealChainResponse(dispatchers)
     }
 
     override fun cancel() {
@@ -39,10 +38,11 @@ internal class CallImpl(
         callDone.compareAndSet(false, true)
     }
 
-    private fun getRealChainResponse() {
+    private fun getRealChainResponse(dispatchers: ExecuteOn) {
         if (canceled.get()) return
         listener?.onStart(this)
         val taskChain = mutableListOf<AbsTask>()
+        taskChain.add(TaskExecuteOn(dispatchers))
         taskChain.addAll(tasks)
         taskChain.add(TaskFinishInvoke())
         val chain = ChainImpl(context, taskChain, 0, request, listener, this)

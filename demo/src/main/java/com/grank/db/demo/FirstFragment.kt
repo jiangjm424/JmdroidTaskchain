@@ -15,7 +15,9 @@ import com.grank.db.demo.task.Task4
 import com.grank.db.demo.task.Task5
 import jm.droid.lib.taskchain.AbsTask
 import jm.droid.lib.taskchain.Call
+import jm.droid.lib.taskchain.ExecuteOn
 import jm.droid.lib.taskchain.Request
+import jm.droid.lib.taskchain.TaskExecuteOn
 import jm.droid.lib.taskchain.TaskListener
 
 /**
@@ -56,7 +58,7 @@ class FirstFragment : Fragment() {
         }
         binding.startDownload.setOnClickListener {
             call = Call.Builder().setRequest(Request()).addTask(Task1())
-                .addTasks(listOf(Task2(), task3, Task4(), Task5()))
+                .addTasks(listOf(Task2(), task3, TaskExecuteOn(ExecuteOn.IO),Task4(), TaskExecuteOn(ExecuteOn.MAIN),Task5()))
                 .setListener(object :TaskListener{
                     override fun onStart(call: Call) {
                         Log.i("jiang","task call start :$call")
@@ -78,7 +80,7 @@ class FirstFragment : Fragment() {
 
                 })
                 .build()
-            call?.execute(true)
+            call?.execute(ExecuteOn.IO)
         }
         binding.startIdDownload.setOnClickListener {
             task3.ready(true)
