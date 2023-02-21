@@ -4,13 +4,13 @@
 > 因此这里我们设计了更加方便使用的任务链执行逻辑使用起来也相当方便。
 >
 
-### 1 引入库
+#### 1 引入库
 
 ```groovy
 implementation 'io.github.jiangjm424:taskchain:+'
 ```
 
-### 2 创建任务
+#### 2 创建任务
 **注意这里记得当任务执行完成后，如果需要继续下一个任务，则需要调用nextTask(req), 或者要中断继续执行，也可以直接调用 interrupt(code,msg)**
 
 ```kotlin
@@ -25,8 +25,9 @@ class Task1 : AbsTask() {
 }
 ```
 
-### 3 创建任务链
-**我们还可以为任务链创建监听对象，用于查看本次任务链的执行情况。请注意，每个任务链只能执行execute(sync)
+#### 3 创建任务链
+**我们还可以为任务链创建监听对象，用于查看本次任务链的执行情况。请注意，每个任务链只能执行execute(ExectueOn)一次。
+另外在任务链中，我们还可以添加TaskExecuteOn任务用于切换线程
 一次，当有任务依赖外部条件时，此时的调用线程会成为后续任务的运行线程，所以这里我们可以添加一些切换后面任务运动线程的任务**
 
 ```kotlin
@@ -51,10 +52,10 @@ val t = Call.Builder().setRequest(Request()).addTask(Task1())
 
     })
     .build()
-t.execute(true)
+t.execute(ExectueOn.MAIN)
 ```
 
-== 对话框按序展示请参考 SecondFragment 中的示例 ==
+## 对话框按序展示请参考 SecondFragment 中的示例
 #### 1 先实现对话框的的任务实现
 ```kotlin
 abstract class AbsDialog : AbsTask() {
