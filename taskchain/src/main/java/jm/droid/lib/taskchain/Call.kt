@@ -16,7 +16,7 @@ interface Call {
     class Builder(private val context: Context? = null) {
         private var request: Request = Request()
         private var tasks: MutableList<AbsTask> = mutableListOf()
-        private var listener: TaskListener? = null
+        private var listener: TaskchainListener? = null
         fun setRequest(request: Request): Builder {
             this.request = request
             return this
@@ -32,7 +32,7 @@ interface Call {
             return this
         }
 
-        fun setListener(listener: TaskListener?): Builder {
+        fun setListener(listener: TaskchainListener?): Builder {
             this.listener = listener
             return this
         }

@@ -17,4 +17,10 @@ internal interface ITask {
      * 此任务的一些描述，或者一些附带信息
      */
     fun describe(): Any? = null
+
+    /**
+     * 如果是任务设置了超时时间并且在指定时间内未完成，则回调此方法
+     * @return true 继续走下一个任务， false 中断任务链
+     */
+    fun onTimeOut() = true
 }

@@ -1,6 +1,6 @@
 package jm.droid.lib.taskchain
 
-interface TaskListener {
+interface TaskchainListener {
     /**
      * 任务链开始执行
      */

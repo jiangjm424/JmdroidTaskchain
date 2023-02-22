@@ -1,18 +1,14 @@
 package jm.droid.lib.taskchain
 
 import android.content.Context
-import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicBoolean
 
 internal class CallImpl(
     private val context: Context?,
     private val request: Request,
     private val tasks: List<AbsTask>,
-    private val listener: TaskListener?,
+    private val listener: TaskchainListener?,
 ) : Call {
-    companion object {
-        private val executeService = Executors.newSingleThreadExecutor()
-    }
 
     private val executed = AtomicBoolean()
     private val canceled = AtomicBoolean()
@@ -32,7 +28,7 @@ internal class CallImpl(
     }
 
     /**
-     * @param finish true 任务链所有任务执行完成后结束  false  任务链被某个任务中断导致的任务结
+     * @param finish true 任务链所有任务执行完成后结束  false  任务链被某个任务中断或者超时导致的任务结
      */
     internal fun done(finish: Boolean) {
         callDone.compareAndSet(false, true)

@@ -18,7 +18,7 @@ import jm.droid.lib.taskchain.Call
 import jm.droid.lib.taskchain.ExecuteOn
 import jm.droid.lib.taskchain.Request
 import jm.droid.lib.taskchain.TaskExecuteOn
-import jm.droid.lib.taskchain.TaskListener
+import jm.droid.lib.taskchain.TaskchainListener
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -59,7 +59,7 @@ class FirstFragment : Fragment() {
         binding.startDownload.setOnClickListener {
             call = Call.Builder().setRequest(Request()).addTask(Task1())
                 .addTasks(listOf(Task2(), task3, TaskExecuteOn(ExecuteOn.IO),Task4(), TaskExecuteOn(ExecuteOn.MAIN),Task5()))
-                .setListener(object :TaskListener{
+                .setListener(object :TaskchainListener{
                     override fun onStart(call: Call) {
                         Log.i("jiang","task call start :$call")
                     }
