@@ -19,8 +19,9 @@ internal interface ITask {
     fun describe(): Any? = null
 
     /**
-     * 如果是任务设置了超时时间并且在指定时间内未完成，则回调此方法
-     * @return true 继续走下一个任务， false 中断任务链
+     * 如果是任务设置了超时时间并且在指定时间内未完成，则回调此方法，在主线程中执行
+     * @return true  业务自动处理了超时逻辑，调用了nextTask或者interrupt方法才表示处理了，否则返回
+     *         false 表示不关注超时，任务链自动中断
      */
-    fun onTimeOut() = true
+    fun onTimeOut() = false
 }

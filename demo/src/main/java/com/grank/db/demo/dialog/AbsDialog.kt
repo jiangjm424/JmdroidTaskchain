@@ -7,7 +7,7 @@ import jm.droid.lib.taskchain.AbsTask
 import jm.droid.lib.taskchain.Call
 import jm.droid.lib.taskchain.Request
 
-abstract class AbsDialog : AbsTask() {
+abstract class AbsDialog(dd:Long=0) : AbsTask(dd) {
     abstract val title: String
     abstract val message: String
     override fun work(chain: Chain) {

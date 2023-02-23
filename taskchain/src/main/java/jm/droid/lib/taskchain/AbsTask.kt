@@ -11,11 +11,11 @@ abstract class AbsTask(private val timeout: Long = 0) : AsyncTimeout(), ITask {
     }
 
     override fun timedOut() {
-        val t = onTimeOut()
-        if (t) {
-            nextTask(nextChain?.request() ?: Request("timeOut"))
-        } else {
-            interrupt(0, "time out")
+        executeOn(ExecuteOn.MAIN) {
+            val interrupted = onTimeOut()
+            if (!interrupted) {
+                interrupt(0, "time out")
+            }
         }
     }
 
@@ -55,7 +55,7 @@ abstract class AbsTask(private val timeout: Long = 0) : AsyncTimeout(), ITask {
     /**
      * 方便任务执行时切换线程
      */
-    fun executeOn(executeOn: ExecuteOn, block: () -> Unit) {
+    protected fun executeOn(executeOn: ExecuteOn, block: () -> Unit) {
         when (executeOn) {
             ExecuteOn.MAIN -> Dispatcher.M.post { block() }
             ExecuteOn.IO -> Dispatcher.I.execute { block() }

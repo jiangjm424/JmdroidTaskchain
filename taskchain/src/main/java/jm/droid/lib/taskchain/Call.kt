@@ -5,7 +5,7 @@ import android.content.Context
 interface Call {
     /**
      * 任务链接开始运行
-     * @param sync true  当前线程执行  false 在子线程启动
+     * @param dispatchers 任务链开始时运行的线程，当然任务也可以使用 executeOn(ExecuteOn,block)进行切换
      */
     fun execute(dispatchers: ExecuteOn=ExecuteOn.DEFAULT)
 
